@@ -15,4 +15,5 @@ public class Categorie {
     private Long id;
     private String nom;
     private String description;
+    private Boolean isActiveCategory;
 }
