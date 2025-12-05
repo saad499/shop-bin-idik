@@ -14,7 +14,7 @@ public class ShopBinIdikApplication {
         SpringApplication.run(ShopBinIdikApplication.class, args);
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner runner(CategorieRepository categorieRepository) {
         return args -> {
             categorieRepository.save(Categorie.builder().nom("Alimentation").description("Produits alimentaires").isActiveCategory(true).build());

@@ -31,5 +31,5 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private StatusProduct status = StatusProduct.ACTIF;
     private LocalDateTime dateCreated = LocalDateTime.now();
-    private Boolean isActiveCategory;
+    private Boolean isActiveProduct;
 }
