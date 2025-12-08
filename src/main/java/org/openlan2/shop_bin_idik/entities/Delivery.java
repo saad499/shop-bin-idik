@@ -1,7 +1,10 @@
 package org.openlan2.shop_bin_idik.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.openlan2.shop_bin_idik.constant.StatusDelivery;
 
 import java.time.LocalDateTime;
