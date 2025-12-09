@@ -20,9 +20,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "commercant_id", nullable = false)
-    private Commercant commercant;
+    private Commercant commercant;*/
 
     @ManyToOne
     @JoinColumn(name = "categorie_id")
