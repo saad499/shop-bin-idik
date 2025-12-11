@@ -28,11 +28,12 @@ public class ProductController {
         return ResponseEntity.ok(productService.updateProduct(id, dto));
     }
 
-    @PostMapping("/deactivate")
+    @PostMapping("/activate-desactivate")
     public ResponseEntity<Product> deactivateProduct(@RequestParam Long id) {
         Product updated = productService.setIsActiveProductFalse(id);
         return ResponseEntity.ok(updated);
     }
+
     @DeleteMapping("")
     public ResponseEntity<Void> delete(@RequestParam Long id) {
         productService.deleteProduct(id);

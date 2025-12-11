@@ -84,7 +84,7 @@ public class ProductServiceImpl implements ProductService {
     public Product setIsActiveProductFalse(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
-        product.setIsActiveProduct(false);
+        product.setIsActiveProduct(!product.getIsActiveProduct());
         return productRepository.save(product);
     }
 
