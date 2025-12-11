@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.openlan2.shop_bin_idik.constant.StatusProduct;
+import org.openlan2.shop_bin_idik.dto.SizeDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,10 +34,14 @@ public class Product {
     private String description;
     private Double prix;
     
-    @ElementCollection
-    @CollectionTable(name = "product_sizes", joinColumns = @JoinColumn(name = "product_id"))
-    @Column(name = "size")
-    private List<String> sizes;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Size> sizes;
+    
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Color> colors;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images;
     
     private Integer stock;
     @Enumerated(EnumType.STRING)

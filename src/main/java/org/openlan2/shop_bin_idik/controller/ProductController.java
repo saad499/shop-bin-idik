@@ -34,6 +34,11 @@ public class ProductController {
         return ResponseEntity.ok(updated);
     }
 
+    @GetMapping("/is-active")
+    public ResponseEntity<Boolean> getIsActive(@RequestParam Long id) {
+        return ResponseEntity.ok(productService.getIsActiveProduct(id));
+    }
+
     @DeleteMapping("")
     public ResponseEntity<Void> delete(@RequestParam Long id) {
         productService.deleteProduct(id);
