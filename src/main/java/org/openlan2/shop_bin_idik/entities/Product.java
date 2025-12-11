@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.openlan2.shop_bin_idik.constant.StatusProduct;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "table_products")
@@ -31,6 +32,13 @@ public class Product {
     private String nom;
     private String description;
     private Double prix;
+    
+    @ElementCollection
+    @CollectionTable(name = "product_sizes", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "size")
+    private List<String> sizes;
+    
+    private Integer stock;
     @Enumerated(EnumType.STRING)
     private StatusProduct status = StatusProduct.ACTIF;
     private LocalDateTime dateCreated = LocalDateTime.now();

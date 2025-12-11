@@ -15,4 +15,7 @@ public interface ProductService {
     Product updateProduct(Long id, ProductDto dto);
     void deleteProduct(Long id);
     Product setIsActiveProductFalse(Long id);
+    List<ProductDto> searchProducts(String searchTerm);
+    List<ProductDto> searchByNom(String nom);
+    List<ProductDto> searchByCategorie(String categorieName);
 }

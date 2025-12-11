@@ -47,6 +47,8 @@ public class ProductServiceImpl implements ProductService {
         product.setNom(dto.getNom());
         product.setDescription(dto.getDescription());
         product.setPrix(dto.getPrix());
+        product.setSizes(dto.getSizes());
+        product.setStock(dto.getStock());
         product.setStatus(dto.getStatus());
         
         if (dto.getCategorieId() != null) {
@@ -104,5 +106,29 @@ public class ProductServiceImpl implements ProductService {
     public Product getProductById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
+    }
+
+    @Override
+    public List<ProductDto> searchProducts(String searchTerm) {
+        List<Product> products = productRepository.searchByNomOrCategorie(searchTerm);
+        return products.stream()
+            .map(productMapper::toDto)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDto> searchByNom(String nom) {
+        List<Product> products = productRepository.findByNomContainingIgnoreCase(nom);
+        return products.stream()
+            .map(productMapper::toDto)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDto> searchByCategorie(String categorieName) {
+        List<Product> products = productRepository.findByCategorieNomContainingIgnoreCase(categorieName);
+        return products.stream()
+            .map(productMapper::toDto)
+            .collect(Collectors.toList());
     }
 }

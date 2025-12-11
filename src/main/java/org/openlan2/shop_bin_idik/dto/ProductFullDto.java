@@ -4,6 +4,7 @@ import lombok.Data;
 import org.openlan2.shop_bin_idik.constant.StatusProduct;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class ProductFullDto {
@@ -11,6 +12,8 @@ public class ProductFullDto {
     private String nom;
     private String description;
     private Double prix;
+    private List<String> sizes;
+    private Integer stock;
     private StatusProduct status;
     private Boolean isActiveProduct;
     private LocalDateTime dateCreated;

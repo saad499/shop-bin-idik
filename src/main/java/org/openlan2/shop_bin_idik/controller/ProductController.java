@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class ProductController {
 
     private final ProductService productService;
@@ -56,5 +57,19 @@ public class ProductController {
     @GetMapping("")
     public ResponseEntity<Product> getById(@RequestParam Long id) {
         return ResponseEntity.ok(productService.getProductById(id));
+    }
+    @GetMapping("/search")
+    public ResponseEntity<List<ProductDto>> searchProducts(@RequestParam String searchTerm) {
+        return ResponseEntity.ok(productService.searchProducts(searchTerm));
+    }
+
+    @GetMapping("/search/nom")
+    public ResponseEntity<List<ProductDto>> searchByNom(@RequestParam String nom) {
+        return ResponseEntity.ok(productService.searchByNom(nom));
+    }
+
+    @GetMapping("/search/categorie")
+    public ResponseEntity<List<ProductDto>> searchByCategorie(@RequestParam String categorieName) {
+        return ResponseEntity.ok(productService.searchByCategorie(categorieName));
     }
 }
