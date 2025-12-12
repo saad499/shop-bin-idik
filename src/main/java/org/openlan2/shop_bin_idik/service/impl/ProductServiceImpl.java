@@ -87,7 +87,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Long id, ProductDto dto) {
+    public ProductDto updateProduct(Long id, ProductDto dto) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
         
@@ -150,7 +150,8 @@ public class ProductServiceImpl implements ProductService {
                 product.getImages().addAll(newImages);
             }
         }
-        return productRepository.save(product);
+        Product updatedProduct = productRepository.save(product);
+        return productMapper.toDto(updatedProduct);
     }
 
     @Override

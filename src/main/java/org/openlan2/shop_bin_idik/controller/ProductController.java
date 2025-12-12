@@ -27,7 +27,7 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<Product> update(@RequestParam Long id, @RequestBody ProductDto dto) {
+    public ResponseEntity<ProductDto> update(@RequestParam Long id, @RequestBody ProductDto dto) {
         return ResponseEntity.ok(productService.updateProduct(id, dto));
     }
 

@@ -13,7 +13,7 @@ public interface ProductService {
     ProductDto getByIsActiveProduct(boolean isActive);
     Product getProductById(Long id);
     Product createProduct(ProductDto dto);
-    Product updateProduct(Long id, ProductDto dto);
+    ProductDto updateProduct(Long id, ProductDto dto);
     void deleteProduct(Long id);
     Product setIsActiveProductFalse(Long id);
     Boolean getIsActiveProduct(Long id);
