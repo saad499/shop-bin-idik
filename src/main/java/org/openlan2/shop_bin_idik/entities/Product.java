@@ -1,5 +1,7 @@
 package org.openlan2.shop_bin_idik.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +11,7 @@ import org.openlan2.shop_bin_idik.constant.StatusProduct;
 import org.openlan2.shop_bin_idik.dto.SizeDto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,8 +29,9 @@ public class Product {
     @JoinColumn(name = "commercant_id", nullable = false)
     private Commercant commercant;*/
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categorie_id")
+    @JsonIgnoreProperties({"products"})
     private Categorie categorie;
 
     private String nom;
@@ -35,13 +39,16 @@ public class Product {
     private Double prix;
     
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Size> sizes;
+    @JsonManagedReference("product-sizes")
+    private List<Size> sizes = new ArrayList<>();
     
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Color> colors;
+    @JsonManagedReference("product-colors")
+    private List<Color> colors = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Image> images;
+    @JsonManagedReference("product-images")
+    private List<Image> images = new ArrayList<>();
     
     private Integer stock;
     @Enumerated(EnumType.STRING)

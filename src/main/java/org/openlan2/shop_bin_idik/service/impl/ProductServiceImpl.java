@@ -1,8 +1,7 @@
 package org.openlan2.shop_bin_idik.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.openlan2.shop_bin_idik.dto.ProductDto;
-import org.openlan2.shop_bin_idik.dto.ProductFullDto;
+import org.openlan2.shop_bin_idik.dto.*;
 import org.openlan2.shop_bin_idik.entities.Categorie;
 import org.openlan2.shop_bin_idik.entities.Color;
 import org.openlan2.shop_bin_idik.entities.Size;
@@ -14,6 +13,8 @@ import org.openlan2.shop_bin_idik.repository.CategorieRepository;
 import org.openlan2.shop_bin_idik.repository.ProductRepository;
 import org.openlan2.shop_bin_idik.service.ProductService;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -158,11 +159,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> getAllByIsActiveProduct(boolean isActive) {
-        return productRepository.findAllByIsActiveProduct(isActive)
-                .stream()
-                .map(productMapper::toDto)
-                .collect(Collectors.toList());
+    public Page<ProductDto> getAllByIsActiveProduct(boolean isActive, Pageable pageable) {
+        Page<Product> products = productRepository.findAllByIsActiveProduct(isActive, pageable);
+    return products.map(productMapper::toDto);
     }
 
     @Override
@@ -181,18 +180,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductFullDto> getAllProductsFull() {
-        return productRepository.findAll()
-                .stream()
-                .map(product -> {
-                    ProductFullDto dto = productMapper.toFullDto(product);
-                    if (product.getCategorie() != null) {
-                        dto.setCategorie(categoryMapper.toDto(product.getCategorie()));
-                    }
-                    return dto;
-                })
-                .collect(Collectors.toList());
-    }
+    public Page<ProductFullDto> getAllProductsFull(Pageable pageable) {
+    Page<Product> products = productRepository.findAll(pageable);
+    return products.map(product -> {
+        ProductFullDto dto = productMapper.toFullDto(product);
+        if (product.getCategorie() != null) {
+            dto.setCategorie(categoryMapper.toDto(product.getCategorie()));
+        }
+        return dto;
+    });
+}
 
     @Override
     public Product getProductById(Long id) {
@@ -201,27 +198,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> searchProducts(String searchTerm) {
-        List<Product> products = productRepository.searchByNomOrCategorie(searchTerm);
-        return products.stream()
-            .map(productMapper::toDto)
-            .collect(Collectors.toList());
+    public Page<ProductDto> searchProducts(String searchTerm, Pageable pageable) {
+        Page<Product> products = productRepository.searchByNomOrCategorie(searchTerm, pageable);
+        return products.map(productMapper::toDto);
     }
 
     @Override
-    public List<ProductDto> searchByNom(String nom) {
-        List<Product> products = productRepository.findByNomContainingIgnoreCase(nom);
-        return products.stream()
-            .map(productMapper::toDto)
-            .collect(Collectors.toList());
+    public Page<ProductDto> searchByNom(String nom, Pageable pageable) {
+        Page<Product> products = productRepository.findByNomContainingIgnoreCase(nom, pageable);
+        return products.map(productMapper::toDto);
     }
 
     @Override
-    public List<ProductDto> searchByCategorie(String categorieName) {
-        List<Product> products = productRepository.findByCategorieNomContainingIgnoreCase(categorieName);
-        return products.stream()
-            .map(productMapper::toDto)
-            .collect(Collectors.toList());
+    public Page<ProductDto> searchByCategorie(String categorieName, Pageable pageable) {
+        Page<Product> products = productRepository.findByCategorieNomContainingIgnoreCase(categorieName, pageable);
+        return products.map(productMapper::toDto);
     }
 
     @Override

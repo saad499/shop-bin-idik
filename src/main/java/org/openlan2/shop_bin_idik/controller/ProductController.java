@@ -5,6 +5,9 @@ import org.openlan2.shop_bin_idik.dto.ProductDto;
 import org.openlan2.shop_bin_idik.dto.ProductFullDto;
 import org.openlan2.shop_bin_idik.entities.Product;
 import org.openlan2.shop_bin_idik.service.ProductService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,8 +49,12 @@ public class ProductController {
     }
 
     @GetMapping("/active")
-    public ResponseEntity<List<ProductDto>> getAllByIsActive(@RequestParam boolean isActive) {
-        return ResponseEntity.ok(productService.getAllByIsActiveProduct(isActive));
+    public ResponseEntity<Page<ProductDto>> getAllByIsActive(
+            @RequestParam boolean isActive,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(productService.getAllByIsActiveProduct(isActive, pageable));
     }
 
     @GetMapping("/active/one")
@@ -56,26 +63,42 @@ public class ProductController {
     }
 
     @GetMapping("/all-full")
-    public ResponseEntity<List<ProductFullDto>> getAllProductsFull() {
-        return ResponseEntity.ok(productService.getAllProductsFull());
+    public ResponseEntity<Page<ProductFullDto>> getAllProductsFull(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(productService.getAllProductsFull(pageable));
     }
 
     @GetMapping("")
     public ResponseEntity<Product> getById(@RequestParam Long id) {
         return ResponseEntity.ok(productService.getProductById(id));
     }
+    
     @GetMapping("/search")
-    public ResponseEntity<List<ProductDto>> searchProducts(@RequestParam String searchTerm) {
-        return ResponseEntity.ok(productService.searchProducts(searchTerm));
+    public ResponseEntity<Page<ProductDto>> searchProducts(
+            @RequestParam String searchTerm,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(productService.searchProducts(searchTerm, pageable));
     }
 
     @GetMapping("/search/nom")
-    public ResponseEntity<List<ProductDto>> searchByNom(@RequestParam String nom) {
-        return ResponseEntity.ok(productService.searchByNom(nom));
+    public ResponseEntity<Page<ProductDto>> searchByNom(
+            @RequestParam String nom,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(productService.searchByNom(nom, pageable));
     }
 
     @GetMapping("/search/categorie")
-    public ResponseEntity<List<ProductDto>> searchByCategorie(@RequestParam String categorieName) {
-        return ResponseEntity.ok(productService.searchByCategorie(categorieName));
+    public ResponseEntity<Page<ProductDto>> searchByCategorie(
+            @RequestParam String categorieName,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(productService.searchByCategorie(categorieName, pageable));
     }
 }
