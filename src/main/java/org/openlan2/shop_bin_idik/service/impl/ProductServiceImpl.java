@@ -9,14 +9,14 @@ import org.openlan2.shop_bin_idik.entities.Image;
 import org.openlan2.shop_bin_idik.entities.Product;
 import org.openlan2.shop_bin_idik.mappers.CategoryMapper;
 import org.openlan2.shop_bin_idik.mappers.ProductMapper;
-import org.openlan2.shop_bin_idik.repository.CategorieRepository;
-import org.openlan2.shop_bin_idik.repository.ProductRepository;
+import org.openlan2.shop_bin_idik.repository.*;
 import org.openlan2.shop_bin_idik.service.ProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +26,9 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
     private final CategorieRepository categorieRepository;
+    private final SizeRepository sizeRepository;
+    private final ColorRepository colorRepository;
+    private final ImageRepository imageRepository;
     private final CategoryMapper categoryMapper;
 
     @Override
@@ -51,37 +54,60 @@ public class ProductServiceImpl implements ProductService {
     
     // Handle Sizes
     if (dto.getSizes() != null && !dto.getSizes().isEmpty()) {
+        List<Size> existingSizes = sizeRepository.findByProductId(savedProduct.getId());
+
         List<Size> sizes = dto.getSizes().stream()
+                .filter(sizeDto -> existingSizes.stream()
+                        .noneMatch(existingSize -> existingSize.getSizeName().equalsIgnoreCase(sizeDto.getSizeName())))
                 .map(sizeDto -> Size.builder()
                         .sizeName(sizeDto.getSizeName())
                         .product(savedProduct)
                         .build())
                 .collect(Collectors.toList());
-        savedProduct.setSizes(sizes);
+        if (!sizes.isEmpty()) {
+            savedProduct.setSizes(sizes);
+        }
     }
     
     // Handle Colors
-    if (dto.getColors() != null && !dto.getColors().isEmpty()) {
-        List<Color> colors = dto.getColors().stream()
-                .map(colorDto -> Color.builder()
-                        .colorName(colorDto.getColorName())
-                        .colorCode(colorDto.getColorCode())
-                        .product(savedProduct)
-                        .build())
-                .collect(Collectors.toList());
-        savedProduct.setColors(colors);
-    }
+        if (dto.getColors() != null && !dto.getColors().isEmpty()) {
+            List<Color> existingColors = colorRepository.findByProductId(savedProduct.getId());
+
+            List<Color> colors = dto.getColors().stream()
+                    .filter(colorDto -> existingColors.stream()
+                            .noneMatch(existingColor ->
+                                    existingColor.getColorName().equalsIgnoreCase(colorDto.getColorName()) &&
+                                            (colorDto.getColorCode() == null ||
+                                                    existingColor.getColorCode().equalsIgnoreCase(colorDto.getColorCode()))))
+                    .map(colorDto -> Color.builder()
+                            .colorName(colorDto.getColorName())
+                            .colorCode(colorDto.getColorCode())
+                            .product(savedProduct)
+                            .build())
+                    .collect(Collectors.toList());
+
+            if (!colors.isEmpty()) {
+                savedProduct.setColors(colors);
+            }
+        }
     
     // Handle Images
-    if (dto.getImages() != null && !dto.getImages().isEmpty()) {
-        List<Image> images = dto.getImages().stream()
-                .map(imageDto -> Image.builder()
-                        .imageUrl(imageDto.getImageUrl())
-                        .product(savedProduct)
-                        .build())
-                .collect(Collectors.toList());
-        savedProduct.setImages(images);
-    }
+        if (dto.getImages() != null && !dto.getImages().isEmpty()) {
+            List<Image> existingImages = imageRepository.findByProductId(savedProduct.getId());
+
+            List<Image> images = dto.getImages().stream()
+                    .filter(imageDto -> existingImages.stream()
+                            .noneMatch(existingImage -> existingImage.getImageUrl().equalsIgnoreCase(imageDto.getImageUrl())))
+                    .map(imageDto -> Image.builder()
+                            .imageUrl(imageDto.getImageUrl())
+                            .product(savedProduct)
+                            .build())
+                    .collect(Collectors.toList());
+
+            if (!images.isEmpty()) {
+                savedProduct.setImages(images);
+            }
+        }
     
     return productRepository.save(savedProduct);
     }
@@ -104,13 +130,17 @@ public class ProductServiceImpl implements ProductService {
         }
         // Update Sizes
         if (dto.getSizes() != null && !dto.getSizes().isEmpty()) {
+            List<Size> existingSizes = product.getSizes() != null ? product.getSizes() : new ArrayList<>();
+
             List<Size> newSizes = dto.getSizes().stream()
+                    .filter(sizeDto -> existingSizes.stream()
+                            .noneMatch(existingSize -> existingSize.getSizeName().equalsIgnoreCase(sizeDto.getSizeName())))
                     .map(sizeDto -> Size.builder()
                             .sizeName(sizeDto.getSizeName())
                             .product(product)
                             .build())
                     .collect(Collectors.toList());
-            
+
             if (product.getSizes() == null) {
                 product.setSizes(newSizes);
             } else {
@@ -120,14 +150,21 @@ public class ProductServiceImpl implements ProductService {
 
         // Update Colors
         if (dto.getColors() != null && !dto.getColors().isEmpty()) {
+            List<Color> existingColors = product.getColors() != null ? product.getColors() : new ArrayList<>();
+
             List<Color> newColors = dto.getColors().stream()
+                    .filter(colorDto -> existingColors.stream()
+                            .noneMatch(existingColor ->
+                                    existingColor.getColorName().equalsIgnoreCase(colorDto.getColorName()) &&
+                                            (colorDto.getColorCode() == null ||
+                                                    existingColor.getColorCode().equalsIgnoreCase(colorDto.getColorCode()))))
                     .map(colorDto -> Color.builder()
                             .colorName(colorDto.getColorName())
                             .colorCode(colorDto.getColorCode())
                             .product(product)
                             .build())
                     .collect(Collectors.toList());
-            
+
             if (product.getColors() == null) {
                 product.setColors(newColors);
             } else {
@@ -137,13 +174,17 @@ public class ProductServiceImpl implements ProductService {
         
         // Update Images
         if (dto.getImages() != null && !dto.getImages().isEmpty()) {
+            List<Image> existingImages = product.getImages() != null ? product.getImages() : new ArrayList<>();
+
             List<Image> newImages = dto.getImages().stream()
+                    .filter(imageDto -> existingImages.stream()
+                            .noneMatch(existingImage -> existingImage.getImageUrl().equalsIgnoreCase(imageDto.getImageUrl())))
                     .map(imageDto -> Image.builder()
                             .imageUrl(imageDto.getImageUrl())
                             .product(product)
                             .build())
                     .collect(Collectors.toList());
-            
+
             if (product.getImages() == null) {
                 product.setImages(newImages);
             } else {
