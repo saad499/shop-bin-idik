@@ -20,7 +20,11 @@ public class Client {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
     private String nom;
     private String prenom;
+    private String email;
+    private String telephone;
+
+    @Column(columnDefinition = "TEXT")
+    private String adresse;
 }

@@ -21,17 +21,21 @@ public class OrderItem {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "commercant_id", nullable = false)
-    private Commercant commercant;
+    private Commercant commercant;*/
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "variant_id")
-    private Variant variant;
+    @JoinColumn(name = "size_id")
+    private Size size;
+
+    @ManyToOne
+    @JoinColumn(name = "color_id")
+    private Color color;
 
     private Double prix;
     private Integer quantite;

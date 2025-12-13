@@ -32,8 +32,8 @@ public class ProductController {
     }
 
     @PostMapping("/activate-desactivate")
-    public ResponseEntity<Product> deactivateProduct(@RequestParam Long id) {
-        Product updated = productService.setIsActiveProductFalse(id);
+    public ResponseEntity<ProductDto> deactivateProduct(@RequestParam Long id) {
+        ProductDto updated = productService.setIsActiveProductFalse(id);
         return ResponseEntity.ok(updated);
     }
 

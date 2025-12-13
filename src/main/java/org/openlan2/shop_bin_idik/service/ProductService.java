@@ -15,7 +15,7 @@ public interface ProductService {
     Product createProduct(ProductDto dto);
     ProductDto updateProduct(Long id, ProductDto dto);
     void deleteProduct(Long id);
-    Product setIsActiveProductFalse(Long id);
+    ProductDto setIsActiveProductFalse(Long id);
     Boolean getIsActiveProduct(Long id);
     Page<ProductDto> searchProducts(String searchTerm, Pageable pageable);
     Page<ProductDto> searchByNom(String nom, Pageable pageable);

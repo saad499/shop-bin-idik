@@ -214,11 +214,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product setIsActiveProductFalse(Long id) {
+    public ProductDto setIsActiveProductFalse(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
         product.setIsActiveProduct(!product.getIsActiveProduct());
-        return productRepository.save(product);
+        Product activeProduct = productRepository.save(product);
+        return productMapper.toDto(activeProduct);
     }
 
     @Override
