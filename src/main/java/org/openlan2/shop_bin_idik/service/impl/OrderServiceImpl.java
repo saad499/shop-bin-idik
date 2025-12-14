@@ -1,12 +1,10 @@
 package org.openlan2.shop_bin_idik.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.openlan2.shop_bin_idik.constant.StatusOrder;
 import org.openlan2.shop_bin_idik.dto.OrderDetailDto;
-import org.openlan2.shop_bin_idik.dto.OrderItemDetailDto;
 import org.openlan2.shop_bin_idik.entities.Order;
-import org.openlan2.shop_bin_idik.entities.OrderItem;
 import org.openlan2.shop_bin_idik.mappers.OrderDetailMapper;
-import org.openlan2.shop_bin_idik.repository.OrderItemRepository;
 import org.openlan2.shop_bin_idik.repository.OrderRepository;
 import org.openlan2.shop_bin_idik.service.OrderService;
 import org.springframework.data.domain.Page;
@@ -35,5 +33,11 @@ public class OrderServiceImpl implements OrderService {
         return orders.stream()
                 .map(mapper::mapToOrderDetailDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<OrderDetailDto> getOrdersByStatus(StatusOrder status, Pageable pageable) {
+        Page<Order> orders = orderRepository.findByStatus(status, pageable);
+        return orders.map(mapper::mapToOrderDetailDto);
     }
 }

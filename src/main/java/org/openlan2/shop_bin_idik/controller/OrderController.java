@@ -1,6 +1,7 @@
 package org.openlan2.shop_bin_idik.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.openlan2.shop_bin_idik.constant.StatusOrder;
 import org.openlan2.shop_bin_idik.dto.OrderDetailDto;
 import org.openlan2.shop_bin_idik.service.OrderService;
 import org.springframework.data.domain.Page;
@@ -22,5 +23,14 @@ public class OrderController {
             @RequestParam(defaultValue = "5") int size) {
         Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(orderService.getAllOrdersWithDetails(pageable));
+    }
+
+    @GetMapping("/search-by-status")
+    public ResponseEntity<Page<OrderDetailDto>> getOrdersByStatus(
+            @RequestParam StatusOrder status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(orderService.getOrdersByStatus(status, pageable));
     }
 }
