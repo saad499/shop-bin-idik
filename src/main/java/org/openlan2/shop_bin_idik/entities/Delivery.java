@@ -5,32 +5,30 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.openlan2.shop_bin_idik.constant.StatusDelivery;
-
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "table_delivery")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Table(name = "deliveries")
 public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+    @Column(nullable = false)
+    private String nomComplet;
 
-    @ManyToOne
-    @JoinColumn(name = "livreur_id")
-    private Livreur livreur;
+    @Column(nullable = false)
+    private Double note; // Rating (e.g., 1-5 stars)
 
-    @Enumerated(EnumType.STRING)
-    private StatusDelivery status = StatusDelivery.EN_ROUTE_COMMERCANT;
-    private LocalDateTime dateAssignation = LocalDateTime.now();
+    @Column(nullable = false)
+    private String typeVehicule;
 
+    @Column(nullable = false)
+    private String delai; // Delivery time (e.g., "30 min", "1 hour")
 
+    @Column(nullable = false)
+    private String status; // e.g., "DISPONIBLE", "EN_LIVRAISON", "INDISPONIBLE"
 }

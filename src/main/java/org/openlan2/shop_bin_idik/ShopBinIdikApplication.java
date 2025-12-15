@@ -28,10 +28,11 @@ public class ShopBinIdikApplication {
                              SizeRepository sizeRepository,
                              ColorRepository colorRepository,
                              ImageRepository imageRepository,
-                             UserRepository userRepository) {
+                             UserRepository userRepository,
+                             DeliveryRepository deliveryRepository) {
         return args -> {
             // Categories
-            Categorie cat1 = categorieRepository.save(Categorie.builder()
+            /*Categorie cat1 = categorieRepository.save(Categorie.builder()
                     .nom("Alimentation")
                     .description("Produits alimentaires")
                     .isActiveCategory(true)
@@ -337,7 +338,64 @@ public class ShopBinIdikApplication {
                     .prix(29.99).quantite(1).total(29.99).build());
             orderItemRepository.save(OrderItem.builder()
                     .order(order7).product(product4).size(sizeM4).color(colorNavy)
-                    .prix(59.99).quantite(2).total(119.98).build());
+                    .prix(59.99).quantite(2).total(119.98).build());*/
+
+            // Deliveries (7 deliveries)
+            deliveryRepository.save(Delivery.builder()
+                    .nomComplet("Ahmed Benali")
+                    .note(4.8)
+                    .typeVehicule("Moto")
+                    .delai("20-30 min")
+                    .status("DISPONIBLE")
+                    .build());
+
+            deliveryRepository.save(Delivery.builder()
+                    .nomComplet("Fatima Zahra")
+                    .note(4.5)
+                    .typeVehicule("Voiture")
+                    .delai("30-45 min")
+                    .status("EN_LIVRAISON")
+                    .build());
+
+            deliveryRepository.save(Delivery.builder()
+                    .nomComplet("Mohammed Alami")
+                    .note(4.9)
+                    .typeVehicule("Moto")
+                    .delai("15-25 min")
+                    .status("DISPONIBLE")
+                    .build());
+
+            deliveryRepository.save(Delivery.builder()
+                    .nomComplet("Laila Idrissi")
+                    .note(4.3)
+                    .typeVehicule("Vélo")
+                    .delai("25-35 min")
+                    .status("DISPONIBLE")
+                    .build());
+
+            deliveryRepository.save(Delivery.builder()
+                    .nomComplet("Youssef El Fassi")
+                    .note(4.7)
+                    .typeVehicule("Voiture")
+                    .delai("35-50 min")
+                    .status("INDISPONIBLE")
+                    .build());
+
+            deliveryRepository.save(Delivery.builder()
+                    .nomComplet("Salma Bennani")
+                    .note(4.6)
+                    .typeVehicule("Moto")
+                    .delai("20-30 min")
+                    .status("EN_LIVRAISON")
+                    .build());
+
+            deliveryRepository.save(Delivery.builder()
+                    .nomComplet("Karim Tazi")
+                    .note(5.0)
+                    .typeVehicule("Moto")
+                    .delai("15-20 min")
+                    .status("DISPONIBLE")
+                    .build());
         };
     }
 
