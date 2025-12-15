@@ -14,17 +14,17 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class OrderDetailDto {
-    private Long numberOrder;
-    private LocalDateTime orderDate;
+    private Long numberOrder;//
+    private LocalDateTime orderDate;//
     private Double total;
-    private StatusOrder orderStatus;
+    private StatusOrder orderStatus;//
 
     // Client info
-    private String clientNom;
-    private String clientPrenom;
-    private String clientEmail;
-    private String clientTelephone;
-    private String clientAdresse;
+    private String clientNom;//
+    private String clientPrenom;//
+    private String clientEmail;//
+    private String clientTelephone;//
+    private String clientAdresse;//
 
     // Order items
     private List<OrderItemDetailDto> items;

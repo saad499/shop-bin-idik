@@ -33,4 +33,9 @@ public class OrderController {
         Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(orderService.getOrdersByStatus(status, pageable));
     }
+
+    @PostMapping("/next-status")
+    public ResponseEntity<OrderDetailDto> progressOrderStatus(@RequestParam Long orderId) {
+        return ResponseEntity.ok(orderService.progressOrderStatus(orderId));
+    }
 }

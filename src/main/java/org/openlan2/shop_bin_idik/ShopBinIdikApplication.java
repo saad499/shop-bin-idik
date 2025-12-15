@@ -19,7 +19,7 @@ public class ShopBinIdikApplication {
         SpringApplication.run(ShopBinIdikApplication.class, args);
     }
 
-    //@Bean
+    @Bean
     CommandLineRunner runner(CategorieRepository categorieRepository,
                              ClientRepository clientRepository,
                              ProductRepository productRepository,
@@ -48,6 +48,7 @@ public class ShopBinIdikApplication {
                     .description("Mode et vêtements")
                     .isActiveCategory(true)
                     .build());
+
             // Users
             User user1 = userRepository.save(User.builder()
                     .username("client1")
@@ -64,7 +65,7 @@ public class ShopBinIdikApplication {
                     .dateCreated(LocalDateTime.now())
                     .build());
 
-            // Client
+            // Clients
             Client client1 = clientRepository.save(Client.builder()
                     .user(user1)
                     .nom("Dupont")
@@ -83,7 +84,7 @@ public class ShopBinIdikApplication {
                     .adresse("456 Avenue des Champs, 69001 Lyon")
                     .build());
 
-            // Products
+            // Products (7 products)
             Product product1 = productRepository.save(Product.builder()
                     .nom("T-Shirt Premium")
                     .description("T-shirt en coton de haute qualité")
@@ -117,67 +118,91 @@ public class ShopBinIdikApplication {
                     .categorie(cat2)
                     .build());
 
-            // Sizes for Product 1 (T-Shirt)
-            Size size1 = sizeRepository.save(Size.builder()
-                    .sizeName("S")
-                    .product(product1)
+            Product product4 = productRepository.save(Product.builder()
+                    .nom("Jeans Classique")
+                    .description("Jean denim confortable")
+                    .prix(59.99)
+                    .stock(80)
+                    .status(StatusProduct.ACTIF)
+                    .isActiveProduct(true)
+                    .dateCreated(LocalDateTime.now())
+                    .categorie(cat3)
                     .build());
 
-            Size size2 = sizeRepository.save(Size.builder()
-                    .sizeName("M")
-                    .product(product1)
+            Product product5 = productRepository.save(Product.builder()
+                    .nom("Veste en Cuir")
+                    .description("Veste en cuir véritable")
+                    .prix(199.99)
+                    .stock(40)
+                    .status(StatusProduct.ACTIF)
+                    .isActiveProduct(true)
+                    .dateCreated(LocalDateTime.now())
+                    .categorie(cat3)
                     .build());
 
-            Size size3 = sizeRepository.save(Size.builder()
-                    .sizeName("L")
-                    .product(product1)
+            Product product6 = productRepository.save(Product.builder()
+                    .nom("Casque Audio Pro")
+                    .description("Casque sans fil haute qualité")
+                    .prix(149.99)
+                    .stock(60)
+                    .status(StatusProduct.ACTIF)
+                    .isActiveProduct(true)
+                    .dateCreated(LocalDateTime.now())
+                    .categorie(cat2)
                     .build());
 
-            // Colors for Product 1
-            Color color1 = colorRepository.save(Color.builder()
-                    .colorName("Red")
-                    .colorCode("#FF0000")
-                    .product(product1)
+            Product product7 = productRepository.save(Product.builder()
+                    .nom("Montre Connectée")
+                    .description("Montre intelligente multifonctions")
+                    .prix(249.99)
+                    .stock(45)
+                    .status(StatusProduct.ACTIF)
+                    .isActiveProduct(true)
+                    .dateCreated(LocalDateTime.now())
+                    .categorie(cat2)
                     .build());
 
-            Color color2 = colorRepository.save(Color.builder()
-                    .colorName("Blue")
-                    .colorCode("#0000FF")
-                    .product(product1)
-                    .build());
+            // Sizes (for clothing products)
+            Size sizeS = sizeRepository.save(Size.builder().sizeName("S").product(product1).build());
+            Size sizeM = sizeRepository.save(Size.builder().sizeName("M").product(product1).build());
+            Size sizeL = sizeRepository.save(Size.builder().sizeName("L").product(product1).build());
+            Size sizeXL = sizeRepository.save(Size.builder().sizeName("XL").product(product1).build());
 
-            Color color3 = colorRepository.save(Color.builder()
-                    .colorName("Black")
-                    .colorCode("#000000")
-                    .product(product1)
-                    .build());
+            Size sizeS4 = sizeRepository.save(Size.builder().sizeName("S").product(product4).build());
+            Size sizeM4 = sizeRepository.save(Size.builder().sizeName("M").product(product4).build());
+            Size sizeL4 = sizeRepository.save(Size.builder().sizeName("L").product(product4).build());
 
-            // Images for Products
-            imageRepository.save(Image.builder()
-                    .imageUrl("https://example.com/images/tshirt-red.jpg")
-                    .product(product1)
-                    .build());
+            Size sizeS5 = sizeRepository.save(Size.builder().sizeName("S").product(product5).build());
+            Size sizeM5 = sizeRepository.save(Size.builder().sizeName("M").product(product5).build());
+            Size sizeL5 = sizeRepository.save(Size.builder().sizeName("L").product(product5).build());
 
-            imageRepository.save(Image.builder()
-                    .imageUrl("https://example.com/images/tshirt-blue.jpg")
-                    .product(product1)
-                    .build());
+            // Colors
+            Color colorRed = colorRepository.save(Color.builder().colorName("Red").colorCode("#FF0000").product(product1).build());
+            Color colorBlue = colorRepository.save(Color.builder().colorName("Blue").colorCode("#0000FF").product(product1).build());
+            Color colorBlack = colorRepository.save(Color.builder().colorName("Black").colorCode("#000000").product(product1).build());
 
-            imageRepository.save(Image.builder()
-                    .imageUrl("https://example.com/images/smartphone-x.jpg")
-                    .product(product2)
-                    .build());
+            Color colorWhite = colorRepository.save(Color.builder().colorName("White").colorCode("#FFFFFF").product(product4).build());
+            Color colorGray = colorRepository.save(Color.builder().colorName("Gray").colorCode("#808080").product(product4).build());
+            Color colorNavy = colorRepository.save(Color.builder().colorName("Navy").colorCode("#000080").product(product4).build());
 
-            imageRepository.save(Image.builder()
-                    .imageUrl("https://example.com/images/laptop-ultra.jpg")
-                    .product(product3)
-                    .build());
+            Color colorBrown = colorRepository.save(Color.builder().colorName("Brown").colorCode("#8B4513").product(product5).build());
+            Color colorBlack5 = colorRepository.save(Color.builder().colorName("Black").colorCode("#000000").product(product5).build());
+            Color colorTan = colorRepository.save(Color.builder().colorName("Tan").colorCode("#D2B48C").product(product5).build());
 
-            // Orders
+            // Images
+            imageRepository.save(Image.builder().imageUrl("https://example.com/images/tshirt-1.jpg").product(product1).build());
+            imageRepository.save(Image.builder().imageUrl("https://example.com/images/smartphone.jpg").product(product2).build());
+            imageRepository.save(Image.builder().imageUrl("https://example.com/images/laptop.jpg").product(product3).build());
+            imageRepository.save(Image.builder().imageUrl("https://example.com/images/jeans.jpg").product(product4).build());
+            imageRepository.save(Image.builder().imageUrl("https://example.com/images/jacket.jpg").product(product5).build());
+            imageRepository.save(Image.builder().imageUrl("https://example.com/images/headphones.jpg").product(product6).build());
+            imageRepository.save(Image.builder().imageUrl("https://example.com/images/watch.jpg").product(product7).build());
+
+            // Orders (7 orders with different statuses)
             Order order1 = orderRepository.save(Order.builder()
                     .client(client1)
                     .orderDate(LocalDateTime.now())
-                    .totalPrice(89.97)
+                    .totalPrice(269.97)
                     .status(StatusOrder.EN_TRAITEMENT)
                     .shippingAddress("123 Rue de la Paix, 75001 Paris")
                     .billingAddress("123 Rue de la Paix, 75001 Paris")
@@ -186,43 +211,133 @@ public class ShopBinIdikApplication {
             Order order2 = orderRepository.save(Order.builder()
                     .client(client2)
                     .orderDate(LocalDateTime.now().minusDays(1))
-                    .totalPrice(2099.98)
+                    .totalPrice(539.97)
+                    .status(StatusOrder.PREPAREE)
+                    .shippingAddress("456 Avenue des Champs, 69001 Lyon")
+                    .billingAddress("456 Avenue des Champs, 69001 Lyon")
+                    .build());
+
+            Order order3 = orderRepository.save(Order.builder()
+                    .client(client1)
+                    .orderDate(LocalDateTime.now().minusDays(2))
+                    .totalPrice(649.97)
+                    .status(StatusOrder.EXPEDIEE)
+                    .shippingAddress("123 Rue de la Paix, 75001 Paris")
+                    .billingAddress("123 Rue de la Paix, 75001 Paris")
+                    .build());
+
+            Order order4 = orderRepository.save(Order.builder()
+                    .client(client2)
+                    .orderDate(LocalDateTime.now().minusDays(3))
+                    .totalPrice(449.97)
                     .status(StatusOrder.LIVREE)
                     .shippingAddress("456 Avenue des Champs, 69001 Lyon")
                     .billingAddress("456 Avenue des Champs, 69001 Lyon")
                     .build());
 
-            // Order Items for Order 1
-            orderItemRepository.save(OrderItem.builder()
-                    .order(order1)
-                    .product(product1)
-                    .size(size2)
-                    .color(color1)
-                    .prix(29.99)
-                    .quantite(3)
-                    .total(89.97)
+            Order order5 = orderRepository.save(Order.builder()
+                    .client(client1)
+                    .orderDate(LocalDateTime.now().minusDays(4))
+                    .totalPrice(749.96)
+                    .status(StatusOrder.EN_TRAITEMENT)
+                    .shippingAddress("123 Rue de la Paix, 75001 Paris")
+                    .billingAddress("123 Rue de la Paix, 75001 Paris")
                     .build());
 
-            // Order Items for Order 2
-            orderItemRepository.save(OrderItem.builder()
-                    .order(order2)
-                    .product(product2)
-                    .size(null)
-                    .color(null)
-                    .prix(799.99)
-                    .quantite(1)
-                    .total(799.99)
+            Order order6 = orderRepository.save(Order.builder()
+                    .client(client2)
+                    .orderDate(LocalDateTime.now().minusDays(5))
+                    .totalPrice(1199.97)
+                    .status(StatusOrder.PREPAREE)
+                    .shippingAddress("456 Avenue des Champs, 69001 Lyon")
+                    .billingAddress("456 Avenue des Champs, 69001 Lyon")
                     .build());
 
-            orderItemRepository.save(OrderItem.builder()
-                    .order(order2)
-                    .product(product3)
-                    .size(null)
-                    .color(null)
-                    .prix(1299.99)
-                    .quantite(1)
-                    .total(1299.99)
+            Order order7 = orderRepository.save(Order.builder()
+                    .client(client1)
+                    .orderDate(LocalDateTime.now().minusDays(6))
+                    .totalPrice(359.97)
+                    .status(StatusOrder.EXPEDIEE)
+                    .shippingAddress("123 Rue de la Paix, 75001 Paris")
+                    .billingAddress("123 Rue de la Paix, 75001 Paris")
                     .build());
+
+            // Order Items - Order 1 (3 items with different colors and sizes)
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order1).product(product1).size(sizeS).color(colorRed)
+                    .prix(29.99).quantite(1).total(29.99).build());
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order1).product(product1).size(sizeM).color(colorBlue)
+                    .prix(29.99).quantite(2).total(59.98).build());
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order1).product(product4).size(sizeL4).color(colorNavy)
+                    .prix(59.99).quantite(3).total(179.97).build());
+
+            // Order Items - Order 2
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order2).product(product4).size(sizeM4).color(colorWhite)
+                    .prix(59.99).quantite(2).total(119.98).build());
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order2).product(product5).size(sizeL5).color(colorBrown)
+                    .prix(199.99).quantite(1).total(199.99).build());
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order2).product(product6).size(null).color(null)
+                    .prix(149.99).quantite(1).total(149.99).build());
+
+            // Order Items - Order 3
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order3).product(product5).size(sizeM5).color(colorBlack5)
+                    .prix(199.99).quantite(1).total(199.99).build());
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order3).product(product6).size(null).color(null)
+                    .prix(149.99).quantite(2).total(299.98).build());
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order3).product(product7).size(null).color(null)
+                    .prix(249.99).quantite(1).total(249.99).build());
+
+            // Order Items - Order 4
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order4).product(product1).size(sizeL).color(colorBlack)
+                    .prix(29.99).quantite(3).total(89.97).build());
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order4).product(product4).size(sizeS4).color(colorGray)
+                    .prix(59.99).quantite(2).total(119.98).build());
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order4).product(product7).size(null).color(null)
+                    .prix(249.99).quantite(1).total(249.99).build());
+
+            // Order Items - Order 5
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order5).product(product2).size(null).color(null)
+                    .prix(799.99).quantite(1).total(799.99).build());
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order5).product(product1).size(sizeXL).color(colorRed)
+                    .prix(29.99).quantite(2).total(59.98).build());
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order5).product(product4).size(sizeL4).color(colorWhite)
+                    .prix(59.99).quantite(1).total(59.99).build());
+
+            // Order Items - Order 6
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order6).product(product3).size(null).color(null)
+                    .prix(1299.99).quantite(1).total(1299.99).build());
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order6).product(product5).size(sizeS5).color(colorTan)
+                    .prix(199.99).quantite(2).total(399.98).build());
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order6).product(product6).size(null).color(null)
+                    .prix(149.99).quantite(1).total(149.99).build());
+
+            // Order Items - Order 7
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order7).product(product7).size(null).color(null)
+                    .prix(249.99).quantite(2).total(499.98).build());
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order7).product(product1).size(sizeM).color(colorBlue)
+                    .prix(29.99).quantite(1).total(29.99).build());
+            orderItemRepository.save(OrderItem.builder()
+                    .order(order7).product(product4).size(sizeM4).color(colorNavy)
+                    .prix(59.99).quantite(2).total(119.98).build());
         };
     }
 

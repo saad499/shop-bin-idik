@@ -11,4 +11,5 @@ public interface OrderService {
     Page<OrderDetailDto> getAllOrdersWithDetails(Pageable pageable);
     List<OrderDetailDto> getAllOrdersWithDetails();
     Page<OrderDetailDto> getOrdersByStatus(StatusOrder status, Pageable pageable);
+    OrderDetailDto progressOrderStatus(Long orderId);
 }
