@@ -3,6 +3,7 @@ package org.openlan2.shop_bin_idik;
 import org.openlan2.shop_bin_idik.constant.Role;
 import org.openlan2.shop_bin_idik.constant.StatusOrder;
 import org.openlan2.shop_bin_idik.constant.StatusProduct;
+import org.openlan2.shop_bin_idik.constant.TypeVehicule;
 import org.openlan2.shop_bin_idik.entities.*;
 import org.openlan2.shop_bin_idik.repository.*;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +20,7 @@ public class ShopBinIdikApplication {
         SpringApplication.run(ShopBinIdikApplication.class, args);
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner runner(CategorieRepository categorieRepository,
                              ClientRepository clientRepository,
                              ProductRepository productRepository,
@@ -29,10 +30,11 @@ public class ShopBinIdikApplication {
                              ColorRepository colorRepository,
                              ImageRepository imageRepository,
                              UserRepository userRepository,
-                             DeliveryRepository deliveryRepository) {
+                             DeliveryRepository deliveryRepository,
+                             LivreurRepository livreurRepository) {
         return args -> {
             // Categories
-            /*Categorie cat1 = categorieRepository.save(Categorie.builder()
+            Categorie cat1 = categorieRepository.save(Categorie.builder()
                     .nom("Alimentation")
                     .description("Produits alimentaires")
                     .isActiveCategory(true)
@@ -338,61 +340,118 @@ public class ShopBinIdikApplication {
                     .prix(29.99).quantite(1).total(29.99).build());
             orderItemRepository.save(OrderItem.builder()
                     .order(order7).product(product4).size(sizeM4).color(colorNavy)
-                    .prix(59.99).quantite(2).total(119.98).build());*/
+                    .prix(59.99).quantite(2).total(119.98).build());
+                    
+                    /**/
 
-            // Deliveries (7 deliveries)
-            deliveryRepository.save(Delivery.builder()
+            // Create Livreur users
+            User userLivreur1 = userRepository.save(User.builder()
+                    .username("livreur1")
+                    .email("ahmed.benali@delivery.com")
+                    .password("password123")
+                    .role(Role.LIVREUR)
+                    .dateCreated(LocalDateTime.now())
+                    .build());
+
+            User userLivreur2 = userRepository.save(User.builder()
+                    .username("livreur2")
+                    .email("fatima.zahra@delivery.com")
+                    .password("password123")
+                    .role(Role.LIVREUR)
+                    .dateCreated(LocalDateTime.now())
+                    .build());
+
+            User userLivreur3 = userRepository.save(User.builder()
+                    .username("livreur3")
+                    .email("mohammed.alami@delivery.com")
+                    .password("password123")
+                    .role(Role.LIVREUR)
+                    .dateCreated(LocalDateTime.now())
+                    .build());
+
+            // Create Livreurs
+            Livreur livreur1 = livreurRepository.save(Livreur.builder()
+                    .user(userLivreur1)
                     .nomComplet("Ahmed Benali")
+                    .telephone("0661234567")
+                    .nomCommerce("Express Delivery")
+                    .typeVehicule(TypeVehicule.MOTO)
+                    .numImmatriculation("12345-A-67")
+                    .photoConducteur("https://example.com/photos/ahmed-benali.jpg")
+                    .photoVehiculeRecto("https://example.com/vehicles/12345-A-67-recto.jpg")
+                    .photoVehiculeVerso("https://example.com/vehicles/12345-A-67-verso.jpg")
+                    .build());
+
+            Livreur livreur2 = livreurRepository.save(Livreur.builder()
+                    .user(userLivreur2)
+                    .nomComplet("Fatima Zahra")
+                    .telephone("0662345678")
+                    .nomCommerce("Fast Delivery")
+                    .typeVehicule(TypeVehicule.VOITURE)
+                    .numImmatriculation("54321-B-89")
+                    .photoConducteur("https://example.com/photos/fatima-zahra.jpg")
+                    .photoVehiculeRecto("https://example.com/vehicles/54321-B-89-recto.jpg")
+                    .photoVehiculeVerso("https://example.com/vehicles/54321-B-89-verso.jpg")
+                    .build());
+
+            Livreur livreur3 = livreurRepository.save(Livreur.builder()
+                    .user(userLivreur3)
+                    .nomComplet("Mohammed Alami")
+                    .telephone("0663456789")
+                    .nomCommerce("Quick Delivery")
+                    .typeVehicule(TypeVehicule.MOTO)
+                    .numImmatriculation("98765-C-43")
+                    .photoConducteur("https://example.com/photos/mohammed-alami.jpg")
+                    .photoVehiculeRecto("https://example.com/vehicles/98765-C-43-recto.jpg")
+                    .photoVehiculeVerso("https://example.com/vehicles/98765-C-43-verso.jpg")
+                    .build());
+
+            // Deliveries (with Livreur relationships)
+            deliveryRepository.save(Delivery.builder()
+                    .livreur(livreur1)
                     .note(4.8)
-                    .typeVehicule("Moto")
                     .delai("20-30 min")
                     .status("DISPONIBLE")
                     .build());
 
             deliveryRepository.save(Delivery.builder()
-                    .nomComplet("Fatima Zahra")
+                    .livreur(livreur2)
                     .note(4.5)
-                    .typeVehicule("Voiture")
                     .delai("30-45 min")
                     .status("EN_LIVRAISON")
                     .build());
 
             deliveryRepository.save(Delivery.builder()
-                    .nomComplet("Mohammed Alami")
+                    .livreur(livreur3)
                     .note(4.9)
-                    .typeVehicule("Moto")
                     .delai("15-25 min")
                     .status("DISPONIBLE")
                     .build());
 
             deliveryRepository.save(Delivery.builder()
-                    .nomComplet("Laila Idrissi")
-                    .note(4.3)
-                    .typeVehicule("Vélo")
+                    .livreur(livreur1)
+                    .note(4.7)
                     .delai("25-35 min")
                     .status("DISPONIBLE")
                     .build());
 
             deliveryRepository.save(Delivery.builder()
-                    .nomComplet("Youssef El Fassi")
-                    .note(4.7)
-                    .typeVehicule("Voiture")
+                    .livreur(livreur2)
+                    .note(4.6)
                     .delai("35-50 min")
                     .status("INDISPONIBLE")
                     .build());
 
             deliveryRepository.save(Delivery.builder()
-                    .nomComplet("Salma Bennani")
-                    .note(4.6)
-                    .typeVehicule("Moto")
+                    .livreur(livreur3)
+                    .note(4.8)
                     .delai("20-30 min")
                     .status("EN_LIVRAISON")
                     .build());
 
             deliveryRepository.save(Delivery.builder()
-                    .nomComplet("Karim Tazi")
+                    .livreur(livreur1)
                     .note(5.0)
-                    .typeVehicule("Moto")
                     .delai("15-20 min")
                     .status("DISPONIBLE")
                     .build());

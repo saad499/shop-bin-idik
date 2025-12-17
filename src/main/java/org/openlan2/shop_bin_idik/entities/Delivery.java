@@ -17,14 +17,12 @@ public class Delivery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String nomComplet;
+    @ManyToOne
+    @JoinColumn(name = "livreur_id")
+    private Livreur livreur;
 
     @Column(nullable = false)
     private Double note; // Rating (e.g., 1-5 stars)
-
-    @Column(nullable = false)
-    private String typeVehicule;
 
     @Column(nullable = false)
     private String delai; // Delivery time (e.g., "30 min", "1 hour")

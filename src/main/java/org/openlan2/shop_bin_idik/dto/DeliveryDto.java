@@ -12,8 +12,12 @@ import lombok.NoArgsConstructor;
 public class DeliveryDto {
     private Long id;
     private String nomComplet;
+    private String photo;
     private Double note;
     private String typeVehicule;
     private String delai;
     private String status;
+    private String numImmatriculation;
+    private String photoVehiculeRecto;
+    private String photoVehiculeVerso;
 }
