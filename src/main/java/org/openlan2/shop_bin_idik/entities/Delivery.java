@@ -22,11 +22,11 @@ public class Delivery {
     private Livreur livreur;
 
     @Column(nullable = false)
-    private Double note; // Rating (e.g., 1-5 stars)
+    private Double note;
 
     @Column(nullable = false)
-    private String delai; // Delivery time (e.g., "30 min", "1 hour")
+    private String delai;
 
     @Column(nullable = false)
-    private String status; // e.g., "DISPONIBLE", "EN_LIVRAISON", "INDISPONIBLE"
+    private String status;
 }

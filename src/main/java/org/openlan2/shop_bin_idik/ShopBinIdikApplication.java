@@ -21,20 +21,23 @@ public class ShopBinIdikApplication {
     }
 
     //@Bean
-    CommandLineRunner runner(CategorieRepository categorieRepository,
-                             ClientRepository clientRepository,
-                             ProductRepository productRepository,
-                             OrderRepository orderRepository,
-                             OrderItemRepository orderItemRepository,
-                             SizeRepository sizeRepository,
-                             ColorRepository colorRepository,
-                             ImageRepository imageRepository,
-                             UserRepository userRepository,
-                             DeliveryRepository deliveryRepository,
-                             LivreurRepository livreurRepository) {
+    CommandLineRunner runner(
+        CategorieRepository categorieRepository,
+        ClientRepository clientRepository,
+        ProductRepository productRepository,
+        OrderRepository orderRepository,
+        OrderItemRepository orderItemRepository,
+        SizeRepository sizeRepository,
+        ColorRepository colorRepository,
+        ImageRepository imageRepository,
+        UserRepository userRepository,
+        DeliveryRepository deliveryRepository,
+        LivreurRepository livreurRepository,
+        DeliveryRequestRepository deliveryRequestRepository
+    ) {
         return args -> {
             // Categories
-            Categorie cat1 = categorieRepository.save(Categorie.builder()
+            /*Categorie cat1 = categorieRepository.save(Categorie.builder()
                     .nom("Alimentation")
                     .description("Produits alimentaires")
                     .isActiveCategory(true)
@@ -342,7 +345,6 @@ public class ShopBinIdikApplication {
                     .order(order7).product(product4).size(sizeM4).color(colorNavy)
                     .prix(59.99).quantite(2).total(119.98).build());
                     
-                    /**/
 
             // Create Livreur users
             User userLivreur1 = userRepository.save(User.builder()
@@ -454,7 +456,25 @@ public class ShopBinIdikApplication {
                     .note(5.0)
                     .delai("15-20 min")
                     .status("DISPONIBLE")
-                    .build());
+                    .build());*/
+
+            // Example: create a DeliveryRequest for orderId=1 and deliveryId=1
+            // (Assume order1 and delivery1 are already created above)
+            Delivery delivery1 = deliveryRepository.findAll().get(0); // or use the variable if available
+            Order order1 = orderRepository.findAll().get(0); // or use the variable if available
+
+            deliveryRequestRepository.save(DeliveryRequest.builder()
+                .delivery(delivery1)
+                .order(order1)
+                .pickupAddress("123 Rue de la Paix, 75001 Paris")
+                .deliveryAddress("456 Avenue des Champs, 69001 Lyon")
+                .contactMethod(org.openlan2.shop_bin_idik.constant.ContactMethod.MESSAGE)
+                .estimatedPrice(15.5)
+                .status(org.openlan2.shop_bin_idik.constant.RequestStatus.PENDING)
+                .message("Request sent successfully")
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .build());
         };
     }
 
