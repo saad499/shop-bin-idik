@@ -2,6 +2,7 @@ package org.openlan2.shop_bin_idik.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.openlan2.shop_bin_idik.dto.ProductActiveDto;
 import org.openlan2.shop_bin_idik.dto.ProductDto;
 import org.openlan2.shop_bin_idik.dto.ProductFullDto;
 import org.openlan2.shop_bin_idik.entities.Product;
@@ -20,4 +21,5 @@ public interface ProductService {
     Page<ProductDto> searchProducts(String searchTerm, Pageable pageable);
     Page<ProductDto> searchByNom(String nom, Pageable pageable);
     Page<ProductDto> searchByCategorie(String categorieName, Pageable pageable);
+    Page<ProductActiveDto> getAllActiveProducts(Pageable pageable);
 }

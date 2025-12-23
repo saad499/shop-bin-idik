@@ -37,7 +37,7 @@ public class ShopBinIdikApplication {
     ) {
         return args -> {
             // Categories
-            /*Categorie cat1 = categorieRepository.save(Categorie.builder()
+            Categorie cat1 = categorieRepository.save(Categorie.builder()
                     .nom("Alimentation")
                     .description("Produits alimentaires")
                     .isActiveCategory(true)
@@ -456,12 +456,12 @@ public class ShopBinIdikApplication {
                     .note(5.0)
                     .delai("15-20 min")
                     .status("DISPONIBLE")
-                    .build());*/
+                    .build());
 
             // Example: create a DeliveryRequest for orderId=1 and deliveryId=1
             // (Assume order1 and delivery1 are already created above)
             Delivery delivery1 = deliveryRepository.findAll().get(0); // or use the variable if available
-            Order order1 = orderRepository.findAll().get(0); // or use the variable if available
+            //Order order1 = orderRepository.findAll().get(0); // or use the variable if available
 
             deliveryRequestRepository.save(DeliveryRequest.builder()
                 .delivery(delivery1)

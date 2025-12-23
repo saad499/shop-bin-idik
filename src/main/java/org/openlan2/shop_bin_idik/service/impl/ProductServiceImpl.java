@@ -264,4 +264,15 @@ public class ProductServiceImpl implements ProductService {
             .orElseThrow(() -> new RuntimeException("Product not found"));
         return product.getIsActiveProduct();
     }
+
+    @Override
+    public Page<ProductActiveDto> getAllActiveProducts(Pageable pageable) {
+        Page<Product> products = productRepository.findAllByStatusActif(pageable);
+        return products.map(product -> ProductActiveDto.builder()
+                .nom(product.getNom())
+                .image(product.getImages() != null && !product.getImages().isEmpty() ? 
+                    ImageDto.builder().imageUrl(product.getImages().get(0).getImageUrl()).build() : 
+                    null)
+                .build());
+    }
 }

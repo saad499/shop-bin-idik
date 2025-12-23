@@ -1,6 +1,7 @@
 package org.openlan2.shop_bin_idik.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.openlan2.shop_bin_idik.dto.ProductActiveDto;
 import org.openlan2.shop_bin_idik.dto.ProductDto;
 import org.openlan2.shop_bin_idik.dto.ProductFullDto;
 import org.openlan2.shop_bin_idik.entities.Product;
@@ -100,5 +101,13 @@ public class ProductController {
             @RequestParam(defaultValue = "5") int size) {
         Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(productService.searchByCategorie(categorieName, pageable));
+    }
+
+    @GetMapping("/status/active")
+    public ResponseEntity<Page<ProductActiveDto>> getAllActiveProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(productService.getAllActiveProducts(pageable));
     }
 }

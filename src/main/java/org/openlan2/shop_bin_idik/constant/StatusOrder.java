@@ -15,7 +15,7 @@ public enum StatusOrder {
             case EXPEDIEE:
                 return LIVREE;
             case LIVREE:
-                return null; // Final status
+                return null;
             default:
                 return null;
         }
