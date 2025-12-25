@@ -25,9 +25,11 @@ public class Commercant {
     private String prenom;
     private String telephone;
     private String nomCommerce;
+    private String nameMagazin;
     private String categorie;
     private String adresse;
     private String ville;
+    @Column(name = "logo_url", columnDefinition = "TEXT")
     private String logo;
     private String description;
     private String numImmatriculationFiscale;

@@ -110,4 +110,13 @@ public class ProductController {
         Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(productService.getAllActiveProducts(pageable));
     }
+
+    @GetMapping("/search/actif")
+    public ResponseEntity<Page<ProductActiveDto>> searchProductActif(
+            @RequestParam String searchTerm,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(productService.searchProductActif(searchTerm, pageable));
+    }
 }

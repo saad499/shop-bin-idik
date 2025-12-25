@@ -22,4 +22,5 @@ public interface ProductService {
     Page<ProductDto> searchByNom(String nom, Pageable pageable);
     Page<ProductDto> searchByCategorie(String categorieName, Pageable pageable);
     Page<ProductActiveDto> getAllActiveProducts(Pageable pageable);
+    Page<ProductActiveDto> searchProductActif(String searchTerm, Pageable pageable);
 }
