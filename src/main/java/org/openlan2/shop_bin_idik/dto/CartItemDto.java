@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrderItemDetailDto {
+public class CartItemDto {
+    private Long id;
     private String productName;
     private String productImage;
     private String colorName;

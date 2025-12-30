@@ -38,15 +38,12 @@ public class OrderDetailMapper {
 
         return OrderItemDetailDto.builder()
                 .productName(item.getProduct().getNom())
-                .productDescription(item.getProduct().getDescription())
                 .productImage(imageUrl)
-                .disponibilite(item.getProduct().getStock())
                 .sizeName(item.getSize() != null ? item.getSize().getSizeName() : null)
                 .colorName(item.getColor() != null ? item.getColor().getColorName() : null)
-                .colorCode(item.getColor() != null ? item.getColor().getColorCode() : null)
-                .prix(item.getPrix())
-                .quantite(item.getQuantite())
-                .total(item.getTotal())
+                .quantity(item.getQuantite())
+                .unitPrice(item.getPrix())
+                .totalPrice(item.getTotal())
                 .build();
     }
 }

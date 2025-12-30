@@ -5,12 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductActiveDto {
-    private Long idProduct;
-    private String nom;
-    private ImageDto image;
+public class CartSummaryDto {
+    private List<CartItemDto> items;
+    private Integer totalItems;
+    private Double totalPrice;
 }

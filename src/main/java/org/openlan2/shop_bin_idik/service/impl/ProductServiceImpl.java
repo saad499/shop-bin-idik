@@ -269,6 +269,7 @@ public class ProductServiceImpl implements ProductService {
     public Page<ProductActiveDto> getAllActiveProducts(Pageable pageable) {
         Page<Product> products = productRepository.findAllByStatusActif(pageable);
         return products.map(product -> ProductActiveDto.builder()
+                .idProduct(product.getId())
                 .nom(product.getNom())
                 .image(product.getImages() != null && !product.getImages().isEmpty() ? 
                     ImageDto.builder().imageUrl(product.getImages().get(0).getImageUrl()).build() : 
@@ -280,6 +281,7 @@ public class ProductServiceImpl implements ProductService {
     public Page<ProductActiveDto> searchProductActif(String searchTerm, Pageable pageable) {
         Page<Product> products = productRepository.findActiveProductsByName(searchTerm, pageable);
         return products.map(product -> ProductActiveDto.builder()
+                .idProduct(product.getId())
                 .nom(product.getNom())
                 .image(product.getImages() != null && !product.getImages().isEmpty() ? 
                     ImageDto.builder().imageUrl(product.getImages().get(0).getImageUrl()).build() : 

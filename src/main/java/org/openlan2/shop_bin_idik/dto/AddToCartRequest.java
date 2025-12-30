@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductActiveDto {
-    private Long idProduct;
-    private String nom;
-    private ImageDto image;
+public class AddToCartRequest {
+    private Long productId;
+    private Long colorId;
+    private Long sizeId;
+    private Integer quantity;
 }
