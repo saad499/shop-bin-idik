@@ -18,9 +18,9 @@ public class Support {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private User user;*/
 
     private String typeReclamation;
     private String message;

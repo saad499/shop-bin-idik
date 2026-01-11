@@ -2,6 +2,7 @@ package org.openlan2.shop_bin_idik.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.openlan2.shop_bin_idik.constant.StatusOrder;
+import org.openlan2.shop_bin_idik.dto.CreateOrderRequest;
 import org.openlan2.shop_bin_idik.dto.OrderDetailDto;
 import org.openlan2.shop_bin_idik.service.OrderService;
 import org.springframework.data.domain.Page;
@@ -37,5 +38,10 @@ public class OrderController {
     @PostMapping("/next-status")
     public ResponseEntity<OrderDetailDto> progressOrderStatus(@RequestParam Long orderId) {
         return ResponseEntity.ok(orderService.progressOrderStatus(orderId));
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<OrderDetailDto> createOrder(@RequestBody CreateOrderRequest request) {
+        return ResponseEntity.ok(orderService.createOrder(request));
     }
 }

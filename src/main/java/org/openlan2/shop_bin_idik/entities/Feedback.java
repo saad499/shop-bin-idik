@@ -17,13 +17,13 @@ public class Feedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private User user;*/
 
     private Integer rating;
     private String message;

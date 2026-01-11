@@ -2,6 +2,7 @@ package org.openlan2.shop_bin_idik.service;
 
 import org.openlan2.shop_bin_idik.constant.StatusOrder;
 import org.openlan2.shop_bin_idik.dto.OrderDetailDto;
+import org.openlan2.shop_bin_idik.dto.CreateOrderRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,4 +13,5 @@ public interface OrderService {
     List<OrderDetailDto> getAllOrdersWithDetails();
     Page<OrderDetailDto> getOrdersByStatus(StatusOrder status, Pageable pageable);
     OrderDetailDto progressOrderStatus(Long orderId);
+    OrderDetailDto createOrder(CreateOrderRequest request);
 }

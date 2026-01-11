@@ -14,6 +14,7 @@ import org.openlan2.shop_bin_idik.service.ProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class ProductServiceImpl implements ProductService {
                 .description(dto.getDescription())
                 .prix(dto.getPrix())
                 .stock(dto.getStock())
+                .disponibilite(dto.getDisponibilite() != null ? dto.getDisponibilite() : 0)
                 .status(dto.getStatus())
                 .isActiveProduct(true)
                 .dateCreated(LocalDateTime.now())
@@ -121,6 +123,7 @@ public class ProductServiceImpl implements ProductService {
         product.setDescription(dto.getDescription());
         product.setPrix(dto.getPrix());
         product.setStock(dto.getStock());
+        product.setDisponibilite(dto.getDisponibilite());
         product.setStatus(dto.getStatus());
         
         if (dto.getCategorieId() != null) {
@@ -287,5 +290,31 @@ public class ProductServiceImpl implements ProductService {
                     ImageDto.builder().imageUrl(product.getImages().get(0).getImageUrl()).build() : 
                     null)
                 .build());
+    }
+
+    @Override
+    @Transactional
+    public ProductDto updateProductDisponibilite(Long productId, Integer newDisponibilite) {
+        Product product = productRepository.findById(productId)
+            .orElseThrow(() -> new RuntimeException("Product not found"));
+        
+        product.setDisponibilite(newDisponibilite);
+        Product updatedProduct = productRepository.save(product);
+        return productMapper.toDto(updatedProduct);
+    }
+
+    @Override
+    @Transactional
+    public void decreaseProductDisponibilite(Long productId, Integer quantity) {
+        Product product = productRepository.findById(productId)
+            .orElseThrow(() -> new RuntimeException("Product not found"));
+        
+        Integer currentDisponibilite = product.getDisponibilite();
+        if (currentDisponibilite < quantity) {
+            throw new RuntimeException("Insufficient product availability. Available: " + currentDisponibilite + ", Requested: " + quantity);
+        }
+        
+        product.setDisponibilite(currentDisponibilite - quantity);
+        productRepository.save(product);
     }
 }

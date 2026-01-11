@@ -23,4 +23,6 @@ public interface ProductService {
     Page<ProductDto> searchByCategorie(String categorieName, Pageable pageable);
     Page<ProductActiveDto> getAllActiveProducts(Pageable pageable);
     Page<ProductActiveDto> searchProductActif(String searchTerm, Pageable pageable);
+    ProductDto updateProductDisponibilite(Long productId, Integer newDisponibilite);
+    void decreaseProductDisponibilite(Long productId, Integer quantity);
 }

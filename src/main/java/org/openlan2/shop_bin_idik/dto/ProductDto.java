@@ -21,6 +21,7 @@ public class ProductDto {
     private List<ColorDto> colors;
     private List<ImageDto> images;
     private Integer stock;
+    private Integer disponibilite;
     private StatusProduct status;
     private Boolean isActiveProduct;
     private Long categorieId;

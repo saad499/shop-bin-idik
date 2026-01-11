@@ -51,6 +51,7 @@ public class Product {
     private List<Image> images = new ArrayList<>();
     
     private Integer stock;
+    private Integer disponibilite; // Available quantity
     @Enumerated(EnumType.STRING)
     private StatusProduct status = StatusProduct.ACTIF;
     private LocalDateTime dateCreated = LocalDateTime.now();

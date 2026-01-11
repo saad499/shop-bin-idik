@@ -119,4 +119,11 @@ public class ProductController {
         Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(productService.searchProductActif(searchTerm, pageable));
     }
+
+    @PostMapping("/update-disponibilite")
+    public ResponseEntity<ProductDto> updateProductDisponibilite(
+            @RequestParam Long productId,
+            @RequestParam Integer newDisponibilite) {
+        return ResponseEntity.ok(productService.updateProductDisponibilite(productId, newDisponibilite));
+    }
 }
