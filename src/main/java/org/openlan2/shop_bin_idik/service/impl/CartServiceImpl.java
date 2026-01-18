@@ -129,7 +129,7 @@ public class CartServiceImpl implements CartService {
             .orElseThrow(() -> new RuntimeException("User not found"));
 
         // Get the client associated with this user
-        Client client = clientRepository.findByUser(user)
+        Client client = clientRepository.findByUserId(userId)
             .orElseThrow(() -> new RuntimeException("Client not found for this user"));
 
         // Get cart items

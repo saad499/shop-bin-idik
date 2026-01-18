@@ -23,7 +23,6 @@ public class OrderDetailMapper {
                 .orderStatus(order.getStatus())
                 .clientNom(order.getClient().getNom())
                 .clientPrenom(order.getClient().getPrenom())
-                .clientEmail(order.getClient().getEmail())
                 .clientTelephone(order.getClient().getTelephone())
                 .clientAdresse(order.getClient().getAdresse())
                 .items(items)

@@ -6,4 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LivreurRepository extends JpaRepository<Livreur, Long> {
+    boolean existsByNomComplet(String nomComplet);
+    boolean existsByPrenomLivreur(String prenomLivreur);
+    boolean existsByNomCompletAndPrenomLivreur(String nomComplet, String prenomLivreur);
+    boolean existsByTelephone(String telephone);
+    boolean existsByNumeroPermis(String numeroPermis);
 }

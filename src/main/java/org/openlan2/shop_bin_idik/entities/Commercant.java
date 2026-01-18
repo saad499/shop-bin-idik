@@ -17,7 +17,7 @@ public class Commercant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -25,7 +25,7 @@ public class Commercant {
     private String prenom;
     private String telephone;
     private String nomCommerce;
-    private String nameMagazin;
+    private String businessName;
     private String categorie;
     private String adresse;
     private String ville;
@@ -35,4 +35,6 @@ public class Commercant {
     private String numImmatriculationFiscale;
     private String registreCommerce;
     private String documentAutre;
+    private String prenomCommerce;
+    private String businessAddress;
 }

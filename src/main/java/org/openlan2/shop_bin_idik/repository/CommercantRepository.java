@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface CommercantRepository extends JpaRepository<Commercant, Long> {
-    List<Commercant> findByNameMagazinContainingIgnoreCase(String nameMagazin);
+    List<Commercant> findByBusinessNameContainingIgnoreCase(String businessName);
+    boolean existsByBusinessName(String businessName);
+    boolean existsByTelephone(String telephone);
 }
