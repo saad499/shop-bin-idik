@@ -5,4 +5,5 @@ import org.openlan2.shop_bin_idik.dto.LoginResponse;
 
 public interface AuthService {
     LoginResponse login(LoginRequest loginRequest);
+    boolean isValidCredentials(LoginRequest loginRequest);
 }

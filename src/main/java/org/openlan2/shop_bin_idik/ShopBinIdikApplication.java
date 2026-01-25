@@ -12,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDateTime;
+import org.openlan2.shop_bin_idik.util.PasswordUtil;
 
 @SpringBootApplication
 public class ShopBinIdikApplication {
@@ -41,7 +42,7 @@ public class ShopBinIdikApplication {
             User userCommercant1 = userRepository.save(User.builder()
                     .username("commercant1")
                     .email("commercant1@business.com")
-                    .password("password123")
+                    .password(PasswordUtil.hashPassword("password123"))
                     .role(Role.COMMERCANT)
                     .dateCreated(LocalDateTime.now())
                     .build());
@@ -49,7 +50,7 @@ public class ShopBinIdikApplication {
             User userCommercant2 = userRepository.save(User.builder()
                     .username("commercant2")
                     .email("commercant2@business.com")
-                    .password("password123")
+                    .password(PasswordUtil.hashPassword("password123"))
                     .role(Role.COMMERCANT)
                     .dateCreated(LocalDateTime.now())
                     .build());
@@ -57,7 +58,7 @@ public class ShopBinIdikApplication {
             User userCommercant3 = userRepository.save(User.builder()
                     .username("commercant3")
                     .email("commercant3@business.com")
-                    .password("password123")
+                    .password(PasswordUtil.hashPassword("password123"))
                     .role(Role.COMMERCANT)
                     .dateCreated(LocalDateTime.now())
                     .build());
